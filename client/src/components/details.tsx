@@ -21,12 +21,21 @@ const DetailsPage = () => {
         const type = new URLSearchParams(window.location.search).get('type') || "";
         const popularity = new URLSearchParams(window.location.search).get('popularity') || "";
         const genres = new URLSearchParams(window.location.search).get('genres') || "";
-        const preview= new URLSearchParams(window.location.search).get('preview') || "";
+        const preview = new URLSearchParams(window.location.search).get('preview') || "";
+        let sanitizedPreview = "";
+        try {
+            const url = new URL(preview);
+            if (url.protocol === "http:" || url.protocol === "https:") {
+                sanitizedPreview = url.href;
+            }
+        } catch (e) {
+            console.warn("Invalid preview URL:", preview);
+        }
         
         setDataType(type);
         setArtistPopularity(popularity);
         setArtistGenres(genres);
-        setPreviewURL(preview);
+        setPreviewURL(sanitizedPreview);
 
         if(accessToken && itemLink){ fetchData(itemLink);  }
 

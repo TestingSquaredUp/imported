@@ -3,7 +3,11 @@ const AudioPreview = ({previewURL} : {previewURL:string}) => {
     return (
         <div className="row">
             <audio controls autoPlay muted loop>
-                <source src={previewURL} type="audio/mpeg" />
+                {previewURL ? (
+                    <source src={previewURL} type="audio/mpeg" />
+                ) : (
+                    <p>Audio preview not available.</p>
+                )}
                     Your browser does not support the audio element.
             </audio>
         </div>
